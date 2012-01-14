@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, Hello Android!</string>
-    <string name="app_name">Hello, Android</string>
+    <string name="hello">Hello Bine!</string>
+    <string name="app_name">Tummy Journal</string>
 
 </resources>

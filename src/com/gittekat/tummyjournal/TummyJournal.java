@@ -1,10 +1,7 @@
 package com.gittekat.tummyjournal;
 
-import com.gittekat.tummyjournal.R;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
 
 public class TummyJournal extends Activity {
     /** Called when the activity is first created. */
