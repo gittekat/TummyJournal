@@ -1,4 +1,6 @@
-package com.example.helloandroid;
+package com.gittekat.tummyjournal;
+
+import com.gittekat.tummyjournal.R;
 
 import android.app.Activity;
 import android.os.Bundle;
