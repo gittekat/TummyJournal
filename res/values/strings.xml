@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello Bine!</string>
     <string name="app_name">Tummy Journal</string>
+    <string name="food_title">Essen</string>
+    <string name="food1">Was habe ich gegessen?</string>
+
+    
+    <string name="defecation_title">Stuhlgang</string>
+    <string name="defecation1">Wie war der Stuhlgang?</string>
+
+    <string name="submit">Fertig</string>
 
 </resources>

@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:minSdkVersion="10" android:maxSdkVersion="10" android:targetSdkVersion="10"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.FoodStuffActivity"></activity>
+        <activity android:name=".activities.DefecationActivity"></activity>
     </application>
 
 </manifest>
