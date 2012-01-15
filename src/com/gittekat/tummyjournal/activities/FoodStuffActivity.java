@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gittekat.tummyjournal.R;
+import com.gittekat.tummyjournal.db.Foodstuff;
+import com.gittekat.tummyjournal.db.FoodstuffDB;
 
 public class FoodStuffActivity extends Activity {
+	private FoodstuffDB db;
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
@@ -19,6 +22,8 @@ public class FoodStuffActivity extends Activity {
 		if (button != null) {
 			button.setOnClickListener(new SubmitListener());
 		}
+
+		db = new FoodstuffDB(this);
 	}
 
 	private Button getSubmitButton() {
@@ -38,7 +43,18 @@ public class FoodStuffActivity extends Activity {
 		public void onClick(final View v) {
 			final String textEntry = getFoodText1String();
 			System.err.println(textEntry);
+
+			final Foodstuff foodstuff = new Foodstuff();
+			foodstuff.name = textEntry;
+			db.setFoodstuff(foodstuff);
+			db.printDBContent();
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		db.close();
+		super.onDestroy();
 	}
 
 }

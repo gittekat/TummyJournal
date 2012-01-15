@@ -8,18 +8,13 @@ import android.widget.TabHost;
 
 import com.gittekat.tummyjournal.activities.DefecationActivity;
 import com.gittekat.tummyjournal.activities.FoodStuffActivity;
-import com.gittekat.tummyjournal.db.FoodstuffDB;
 
 public class TummyJournal extends TabActivity {
-	private FoodstuffDB db;
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		db = new FoodstuffDB(this);
 
 		final Resources res = getResources(); // Resource object to get
 												// Drawables
@@ -46,7 +41,6 @@ public class TummyJournal extends TabActivity {
 
 	@Override
 	protected void onDestroy() {
-		db.close();
 		super.onDestroy();
 	}
 }
