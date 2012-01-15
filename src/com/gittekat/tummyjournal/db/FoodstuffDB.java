@@ -6,7 +6,12 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class FoodstuffDB extends SQLiteOpenHelper {
+	public final static String MAIN_TABLE = "foodstuff"; // Tabellenname
 	public final String sqlEmptyDB = "CREATE TABLE foodstuff (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL);";
+
+	public FoodstuffDB(final Context context) {
+		super(context, MAIN_TABLE, null, 1);
+	}
 
 	public FoodstuffDB(final Context context, final String name, final CursorFactory factory, final int version) {
 		super(context, name, factory, version);
