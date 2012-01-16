@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="defecation_types">
+        <item>Typ 1: Einzelne Klumpen</item> <!-- Typ 1: Einzelne Klumpen bzw. feste Kügelchen, ähnlich wie Nüße, schwer auszuscheiden -->
+        <item>Typ 2: klumpige Wurst-Form</item> <!--  -->
+        <item>Typ 3: rissige Wurst</item> <!-- Typ 3: wie eine Wurst mit rissiger Oberfläche bzw. mit kleinen Stückchen an der Oberfläche -->
+        <item>Typ 4: weiche/glatte Wurst</item> <!-- Typ 4: wie eine Wurst oder Schlange mit weicher glatter Oberfläche -->
+        <item>Typ 5: weiche/glatte Klümpchen</item> <!-- Typ 5: Einzelne weiche, klaren glattrandige Klümpchen, leicht auszuscheiden -->
+        <item>Typ 6: weiche/ausgefranste Klümpchen</item> <!-- Typ 6: Einzelne lockere weiche Klümpchen mit ausgefransten unregelmäßigem Rand  -->
+        <item>Typ 7: Flüssig / wässrig</item> <!-- Typ 7: Flüssig / wässrig, ohne feste Bestandteile / keine Stücke -->
+    </string-array>
+    
+</resources>

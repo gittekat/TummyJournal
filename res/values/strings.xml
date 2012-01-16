@@ -11,4 +11,7 @@
 
     <string name="submit">Fertig</string>
 
+    <string name="defecation2">Besonderheiten</string>
+    <string name="defecation_type">Typ des Stuhlgangs</string>
+
 </resources>
