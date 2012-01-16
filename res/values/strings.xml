@@ -13,5 +13,6 @@
 
     <string name="defecation2">Besonderheiten</string>
     <string name="defecation_type">Typ des Stuhlgangs</string>
+    <string name="defecation_date">Ändern des Datums</string>
 
 </resources>
