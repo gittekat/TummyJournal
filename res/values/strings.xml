@@ -8,11 +8,11 @@
     
     <string name="defecation_title">Stuhlgang</string>
     <string name="defecation1">Wie war der Stuhlgang?</string>
-
-    <string name="submit">Fertig</string>
-
     <string name="defecation2">Besonderheiten</string>
     <string name="defecation_type">Typ des Stuhlgangs</string>
-    <string name="defecation_date">Ändern des Datums</string>
+    <string name="defecation_date">Datum</string>
+    <string name="defecation_time">Uhrzeit</string>
 
+    <string name="submit">Fertig</string>
+    
 </resources>

@@ -2,6 +2,7 @@
 <resources>
     
     <string-array name="defecation_types">
+        <item>keine Angabe</item>
         <item>Typ 1: Einzelne Klumpen</item> <!-- Typ 1: Einzelne Klumpen bzw. feste Kügelchen, ähnlich wie Nüße, schwer auszuscheiden -->
         <item>Typ 2: klumpige Wurst-Form</item> <!--  -->
         <item>Typ 3: rissige Wurst</item> <!-- Typ 3: wie eine Wurst mit rissiger Oberfläche bzw. mit kleinen Stückchen an der Oberfläche -->

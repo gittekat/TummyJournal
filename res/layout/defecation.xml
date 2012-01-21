@@ -8,10 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""/>
-    <Button android:id="@+id/pickDate"
+    
+	
+    <TextView android:id="@+id/timeDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/defecation_date"/>
+        android:text=""/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -32,7 +34,9 @@
     <EditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:inputType="text">
+        android:layout_height="wrap_content"
+        android:textSize="6pt"
+        android:inputType="text">
 
         <requestFocus />
     </EditText>
