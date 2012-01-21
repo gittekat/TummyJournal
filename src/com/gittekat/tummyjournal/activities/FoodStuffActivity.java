@@ -7,11 +7,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gittekat.tummyjournal.R;
-import com.gittekat.tummyjournal.db.Foodstuff;
-import com.gittekat.tummyjournal.db.FoodstuffDB;
+import com.gittekat.tummyjournal.db.FoodstuffWrapper;
+import com.gittekat.tummyjournal.db.TummyJournalDB;
 
 public class FoodStuffActivity extends Activity {
-	private FoodstuffDB db;
+	private TummyJournalDB db;
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class FoodStuffActivity extends Activity {
 			button.setOnClickListener(new SubmitListener());
 		}
 
-		db = new FoodstuffDB(this);
+		db = new TummyJournalDB(this);
 	}
 
 	private Button getSubmitButton() {
@@ -39,22 +39,21 @@ public class FoodStuffActivity extends Activity {
 		}
 	}
 
-	private final class SubmitListener implements View.OnClickListener {
-		public void onClick(final View v) {
-			final String textEntry = getFoodText1String();
-			System.err.println(textEntry);
-
-			final Foodstuff foodstuff = new Foodstuff();
-			foodstuff.name = textEntry;
-			db.setFoodstuff(foodstuff);
-			db.printDBContent();
-		}
-	}
-
 	@Override
 	protected void onDestroy() {
 		db.close();
 		super.onDestroy();
 	}
 
+	private final class SubmitListener implements View.OnClickListener {
+		public void onClick(final View v) {
+			final String textEntry = getFoodText1String();
+			System.err.println(textEntry);
+
+			final FoodstuffWrapper foodstuff = new FoodstuffWrapper();
+			foodstuff.name = textEntry;
+			db.setFoodstuff(foodstuff);
+			db.printDBContent();
+		}
+	}
 }
