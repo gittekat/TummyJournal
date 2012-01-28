@@ -1,5 +1,10 @@
 package com.gittekat.tummyjournal.db;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +14,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TummyJournalDB extends SQLiteOpenHelper {
 	public final static String ID = "_id";
+
+	// database name
+	public final static String DB_NAME = "tummyjournal";
 
 	// foodstuff table
 	public final static String FOODSTUFF_TABLE = "foodstuff";
@@ -27,10 +35,10 @@ public class TummyJournalDB extends SQLiteOpenHelper {
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + DEFECATION_TYPE + " TEXT NOT NULL, " + DEFECATION_DETAILS + " TEXT NOT NULL, "
 			+ DEFECATION_DATETIME + " TIMESTAMP NOT NULL DEFAULT current_timestamp);";
 
-	public final static String MAIN_DATABASE_CREATE = FOODSTUFF_TABLE_CREATE + DEFECATION_TABLE_CREATE;
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public TummyJournalDB(final Context context) {
-		super(context, FOODSTUFF_TABLE, null, 1);
+		super(context, DB_NAME, null, 1);
 	}
 
 	public TummyJournalDB(final Context context, final String name, final CursorFactory factory, final int version) {
@@ -39,8 +47,9 @@ public class TummyJournalDB extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(final SQLiteDatabase db) {
-		System.out.println(MAIN_DATABASE_CREATE);
-		db.execSQL(MAIN_DATABASE_CREATE);
+		// tables need to be created separately
+		db.execSQL(FOODSTUFF_TABLE_CREATE);
+		db.execSQL(DEFECATION_TABLE_CREATE);
 	}
 
 	@Override
@@ -97,6 +106,34 @@ public class TummyJournalDB extends SQLiteOpenHelper {
 		return foodstuff.id;
 	}
 
+	public DefecationWrapper getDefecation(final long id) {
+		Cursor cursor = null;
+		try {
+			cursor = getReadableDatabase().query(DEFECATION_TABLE, new String[] { ID, DEFECATION_DETAILS, DEFECATION_DATETIME }, ID + "=?",
+					new String[] { String.valueOf(id) }, null, null, null);
+			if (!cursor.moveToFirst()) {
+				return null;
+			}
+			final DefecationWrapper wrapper = new DefecationWrapper();
+			wrapper.id = id;
+			wrapper.details = cursor.getString(cursor.getColumnIndexOrThrow(DEFECATION_DETAILS));
+			final String dateStr = cursor.getString(cursor.getColumnIndexOrThrow(DEFECATION_DATETIME));
+			Calendar cal = Calendar.getInstance();
+			try {
+				final Date date = dateFormat.parse(dateStr);
+				cal.setTime(date);
+			} catch (final ParseException e) {
+				cal = Calendar.getInstance();
+			}
+			wrapper.datetime = cal;
+			return wrapper;
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
 	public long setDefecation(final DefecationWrapper defecation) {
 		final ContentValues values = new ContentValues();
 
@@ -105,6 +142,7 @@ public class TummyJournalDB extends SQLiteOpenHelper {
 		}
 		values.put(DEFECATION_TYPE, defecation.type);
 		values.put(DEFECATION_DETAILS, defecation.details);
+		values.put(DEFECATION_DATETIME, dateFormat.format(defecation.datetime.getTime()));
 
 		if (defecation.id == 0) {
 			getWritableDatabase().insert(DEFECATION_TABLE, null, values);

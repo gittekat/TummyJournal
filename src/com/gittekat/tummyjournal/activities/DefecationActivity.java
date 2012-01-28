@@ -1,6 +1,7 @@
 package com.gittekat.tummyjournal.activities;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -79,6 +80,8 @@ public class DefecationActivity extends Activity {
 		hour = c.get(Calendar.HOUR_OF_DAY);
 		minute = c.get(Calendar.MINUTE);
 
+		final Date test = new Date(year, month, day, hour, minute);
+
 		// defecation types spinner
 		final Spinner defecationTypeSpinner = (Spinner) findViewById(R.id.defecation_type);
 		final ArrayAdapter types_adapter = ArrayAdapter.createFromResource(this, R.array.defecation_types, R.layout.spinner_layout);
@@ -150,9 +153,11 @@ public class DefecationActivity extends Activity {
 			final DefecationWrapper defecation = new DefecationWrapper();
 			defecation.details = getDetailsString();
 			defecation.type = getTypeString();
+			final Calendar cal = Calendar.getInstance();
+			cal.set(year, month, day, hour, minute);
+			defecation.datetime = cal;
 
 			db.setDefecation(defecation);
-			// db.printDBContent();
 		}
 	}
 }
