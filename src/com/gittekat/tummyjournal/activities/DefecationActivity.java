@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -150,7 +151,7 @@ public class DefecationActivity extends Activity {
 				.append(minuteText));
 	}
 
-	private final class SubmitListener implements View.OnClickListener {
+	private final class SubmitListener implements OnClickListener {
 		@Override
 		public void onClick(final View v) {
 			final DefecationWrapper defecation = new DefecationWrapper();
@@ -161,6 +162,7 @@ public class DefecationActivity extends Activity {
 			defecation.datetime = cal;
 
 			db.setDefecation(defecation);
+			db.printDBContent();
 		}
 	}
 }

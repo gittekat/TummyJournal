@@ -3,6 +3,7 @@ package com.gittekat.tummyjournal.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class FoodStuffActivity extends Activity {
 		super.onDestroy();
 	}
 
-	private final class SubmitListener implements View.OnClickListener {
+	private final class SubmitListener implements OnClickListener {
 		@Override
 		public void onClick(final View v) {
 			final String textEntry = getFoodText1String();
