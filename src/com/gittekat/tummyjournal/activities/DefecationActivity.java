@@ -4,8 +4,10 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,33 +35,20 @@ public class DefecationActivity extends Activity {
 	static final int DATE_DIALOG_ID = 0;
 	static final int TIME_DIALOG_ID = 1;
 
-	private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-		@Override
-		public void onDateSet(final DatePicker view, final int y, final int monthOfYear, final int dayOfMonth) {
-			year = y;
-			month = monthOfYear;
-			day = dayOfMonth;
-			updateDisplay();
-		}
-	};
-
-	private TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-		@Override
-		public void onTimeSet(final TimePicker view, final int h, final int min) {
-			hour = h;
-			minute = min;
-			updateDisplay();
-		}
-	};
+	private OnDateSetListener dateSetListener = new DateListener();
+	private OnTimeSetListener timeSetListener = new TimeListener();
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.defecation);
 
 		db = new TummyJournalDB(this);
 
+		initLayout();
+	}
+
+	private void initLayout() {
+		setContentView(R.layout.defecation);
 		// date picker
 		dateDisplay = (TextView) findViewById(R.id.dateDisplay);
 		dateDisplay.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +140,25 @@ public class DefecationActivity extends Activity {
 				.append(minuteText));
 	}
 
+	private final class TimeListener implements OnTimeSetListener {
+		@Override
+		public void onTimeSet(final TimePicker view, final int h, final int min) {
+			hour = h;
+			minute = min;
+			updateDisplay();
+		}
+	}
+
+	private final class DateListener implements OnDateSetListener {
+		@Override
+		public void onDateSet(final DatePicker view, final int y, final int monthOfYear, final int dayOfMonth) {
+			year = y;
+			month = monthOfYear;
+			day = dayOfMonth;
+			updateDisplay();
+		}
+	}
+
 	private final class SubmitListener implements OnClickListener {
 		@Override
 		public void onClick(final View v) {
@@ -163,6 +171,8 @@ public class DefecationActivity extends Activity {
 
 			db.setDefecation(defecation);
 			db.printDBContent();
+
+			initLayout();
 		}
 	}
 }
