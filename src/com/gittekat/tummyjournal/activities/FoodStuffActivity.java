@@ -46,6 +46,7 @@ public class FoodStuffActivity extends Activity {
 	}
 
 	private final class SubmitListener implements View.OnClickListener {
+		@Override
 		public void onClick(final View v) {
 			final String textEntry = getFoodText1String();
 			System.err.println(textEntry);

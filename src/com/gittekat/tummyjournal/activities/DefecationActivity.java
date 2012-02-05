@@ -1,7 +1,6 @@
 package com.gittekat.tummyjournal.activities;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -35,6 +34,7 @@ public class DefecationActivity extends Activity {
 
 	private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
+		@Override
 		public void onDateSet(final DatePicker view, final int y, final int monthOfYear, final int dayOfMonth) {
 			year = y;
 			month = monthOfYear;
@@ -44,6 +44,7 @@ public class DefecationActivity extends Activity {
 	};
 
 	private TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+		@Override
 		public void onTimeSet(final TimePicker view, final int h, final int min) {
 			hour = h;
 			minute = min;
@@ -61,6 +62,7 @@ public class DefecationActivity extends Activity {
 		// date picker
 		dateDisplay = (TextView) findViewById(R.id.dateDisplay);
 		dateDisplay.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(final View v) {
 				showDialog(DATE_DIALOG_ID);
 			}
@@ -68,6 +70,7 @@ public class DefecationActivity extends Activity {
 
 		timeDisplay = (TextView) findViewById(R.id.timeDisplay);
 		timeDisplay.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(final View v) {
 				showDialog(TIME_DIALOG_ID);
 			}
@@ -80,11 +83,10 @@ public class DefecationActivity extends Activity {
 		hour = c.get(Calendar.HOUR_OF_DAY);
 		minute = c.get(Calendar.MINUTE);
 
-		final Date test = new Date(year, month, day, hour, minute);
-
 		// defecation types spinner
 		final Spinner defecationTypeSpinner = (Spinner) findViewById(R.id.defecation_type);
-		final ArrayAdapter types_adapter = ArrayAdapter.createFromResource(this, R.array.defecation_types, R.layout.spinner_layout);
+		final ArrayAdapter<CharSequence> types_adapter = ArrayAdapter.createFromResource(this, R.array.defecation_types,
+				R.layout.spinner_layout);
 		types_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		defecationTypeSpinner.setAdapter(types_adapter);
 
@@ -149,6 +151,7 @@ public class DefecationActivity extends Activity {
 	}
 
 	private final class SubmitListener implements View.OnClickListener {
+		@Override
 		public void onClick(final View v) {
 			final DefecationWrapper defecation = new DefecationWrapper();
 			defecation.details = getDetailsString();
