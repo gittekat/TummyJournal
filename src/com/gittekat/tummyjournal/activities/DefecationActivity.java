@@ -24,8 +24,6 @@ import com.gittekat.tummyjournal.db.TummyJournalDB;
 
 public class DefecationActivity extends Activity {
 	private TummyJournalDB db;
-	private TextView dateDisplay;
-	private TextView timeDisplay;
 	private int hour;
 	private int minute;
 	private int year;
@@ -45,21 +43,21 @@ public class DefecationActivity extends Activity {
 		db = new TummyJournalDB(this);
 
 		initLayout();
+
 	}
 
 	private void initLayout() {
 		setContentView(R.layout.defecation);
+
 		// date picker
-		dateDisplay = (TextView) findViewById(R.id.dateDisplay);
-		dateDisplay.setOnClickListener(new View.OnClickListener() {
+		getDateDisplay().setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View v) {
 				showDialog(DATE_DIALOG_ID);
 			}
 		});
 
-		timeDisplay = (TextView) findViewById(R.id.timeDisplay);
-		timeDisplay.setOnClickListener(new View.OnClickListener() {
+		getTimeDisplay().setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View v) {
 				showDialog(TIME_DIALOG_ID);
@@ -73,12 +71,7 @@ public class DefecationActivity extends Activity {
 		hour = c.get(Calendar.HOUR_OF_DAY);
 		minute = c.get(Calendar.MINUTE);
 
-		// defecation types spinner
-		final Spinner defecationTypeSpinner = (Spinner) findViewById(R.id.defecation_type);
-		final ArrayAdapter<CharSequence> types_adapter = ArrayAdapter.createFromResource(this, R.array.defecation_types,
-				R.layout.spinner_layout);
-		types_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		defecationTypeSpinner.setAdapter(types_adapter);
+		initDefecationSpinner();
 
 		final Button button = getSubmitButton();
 		if (button != null) {
@@ -86,6 +79,26 @@ public class DefecationActivity extends Activity {
 		}
 
 		updateDisplay();
+	}
+
+	private void initDefecationSpinner() {
+		// defecation types spinner
+		final ArrayAdapter<CharSequence> types_adapter = ArrayAdapter.createFromResource(this, R.array.defecation_types,
+				R.layout.spinner_layout);
+		types_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		getDefecationSpinner().setAdapter(types_adapter);
+	}
+
+	private Spinner getDefecationSpinner() {
+		return (Spinner) findViewById(R.id.defecation_type);
+	}
+
+	private TextView getTimeDisplay() {
+		return (TextView) findViewById(R.id.timeDisplay);
+	}
+
+	private TextView getDateDisplay() {
+		return (TextView) findViewById(R.id.dateDisplay);
 	}
 
 	@Override
@@ -119,7 +132,7 @@ public class DefecationActivity extends Activity {
 	}
 
 	private String getTypeString() {
-		final Spinner typeSpinner = (Spinner) findViewById(R.id.defecation_type);
+		final Spinner typeSpinner = getDefecationSpinner();
 		if (typeSpinner != null) {
 			return typeSpinner.getSelectedItem().toString();
 		} else {
@@ -128,16 +141,24 @@ public class DefecationActivity extends Activity {
 	}
 
 	private void updateDisplay() {
-		dateDisplay.setText(new StringBuilder().append(getString(R.string.defecation_date)).append(": ").append(day).append(".")
-				.append(month + 1).append(".").append(year).append(" "));
+		System.err.println(day);
+		getDateDisplay().setText(
+				new StringBuilder().append(getString(R.string.defecation_date)).append(": ").append(day).append(".").append(month + 1)
+						.append(".").append(year).append(" "));
 		String minuteText = "";
 		if (minute < 10) {
 			minuteText = "0" + minute;
 		} else {
 			minuteText = "" + minute;
 		}
-		timeDisplay.setText(new StringBuilder().append(getString(R.string.defecation_time)).append(": ").append(hour).append(":")
-				.append(minuteText));
+		getTimeDisplay().setText(
+				new StringBuilder().append(getString(R.string.defecation_time)).append(": ").append(hour).append(":").append(minuteText));
+	}
+
+	private void resetView() {
+		setContentView(R.layout.defecation);
+		initDefecationSpinner();
+		updateDisplay();
 	}
 
 	private final class TimeListener implements OnTimeSetListener {
@@ -172,7 +193,7 @@ public class DefecationActivity extends Activity {
 			db.setDefecation(defecation);
 			db.printDBContent();
 
-			initLayout();
+			resetView();
 		}
 	}
 }
